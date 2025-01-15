@@ -1,0 +1,32 @@
+﻿@model IEnumerable<ExerciceEfCore.Models.TodoTask>
+
+<h1>Todo List</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Statut</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var task in Model)
+        {
+            <tr>
+                <td>@task.Id</td>
+                <td>@task.Titre</td>
+                <td>@task.Description</td>
+                <td>@(task.EstFini ? "Fini" : "En cours")</td>
+                <td>
+                    <a asp-action="Form" asp-route-id="@task.Id" class="btn btn-primary">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Form" class="btn btn-success">Ajouter une nouvelle Task</a>
