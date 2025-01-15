@@ -1,12 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ExerciceEfCore.Data;
+
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ExerciceEfCoreContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ExerciceEfCoreContext") ?? throw new InvalidOperationException("Connection string 'ExerciceEfCoreContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);//Durée de la session
+    options.Cookie.HttpOnly = true; // Sécurise le cookie
+    options.Cookie.IsEssential = true; // Necéssaire pour les cookies de session
+});
 
 var app = builder.Build();
 
@@ -24,6 +33,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

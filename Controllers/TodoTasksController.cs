@@ -19,6 +19,13 @@ namespace ExerciceEfCore.Controllers
         // GET: TodoTasks
         public async Task<IActionResult> Index()
         {
+            var username = HttpContext.Session.GetString("Username");
+            if (string.IsNullOrEmpty(username))
+            {
+                return RedirectToAction("Login", "Auth");
+            }
+            ViewBag.Username = username;
+
             var tasks = await _context.TodoTask.ToListAsync();
             return View(tasks);
         }

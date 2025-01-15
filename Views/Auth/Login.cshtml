@@ -1,0 +1,21 @@
+﻿@{
+	Layout = null;
+}
+<!DOCTYPE html>
+<head>
+	<title>Connexion</title>
+</head>
+<body>
+	<h2>Connexion</h2>
+	<form method="post" action="/Auth/Login">
+		<label for="username"> Nom d'utilisateur</label>
+		<input type="text" id="username" name="username" required />
+		<br />
+		<label for="password">Mot de passe</label>
+		<input type="text" id="password" name="password" required />
+		<br />
+		<button type="submit"> Se connecter </button>
+	</form>
+
+	<p style="color: red;" @ViewBag.Message></p>
+</body>
